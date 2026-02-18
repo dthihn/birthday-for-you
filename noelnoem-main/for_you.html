@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Giang 🎂 | Món quà nhỏ</title>
+  <link rel="icon" href="https://img.icons8.com/color/48/heart-with-arrow--v1.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --soft-gold: #ffe4a6;
+      --warm-cream: #fff3da;
+      --pastel-pink: #ffc8df;
+      --candle-orange: #ffb457;
+      --candle-yellow: #ffd86b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to bottom, #2c003e 0%, #000022 100%);
+      color: #ffffff;
+    }
+
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+
+    #ui-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 12;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding-top: 36px;
+      gap: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: var(--warm-cream);
+      text-shadow: 0 0 20px rgba(255, 213, 170, 0.45);
+    }
+
+    .name-badge {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2rem, 5.8vw, 3.2rem);
+      color: #ffd4e9;
+      text-shadow: 0 0 14px rgba(255, 170, 212, 0.65), 0 0 28px rgba(255, 208, 150, 0.35);
+      background: rgba(16, 7, 32, 0.28);
+      border: 1px solid rgba(255, 206, 229, 0.35);
+      border-radius: 999px;
+      padding: 8px 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: radial-gradient(circle at center, rgba(54, 14, 80, 0.65), rgba(0, 0, 26, 0.94));
+      transition: opacity 0.7s ease;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 232, 184, 0.2);
+      border-top-color: var(--soft-gold);
+      animation: spin 1s linear infinite;
+    }
+
+    .loader-text {
+      color: #ffe8c0;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+    }
+
+    #start-btn {
+      pointer-events: auto;
+      margin-top: 8px;
+      border: 1px solid rgba(255, 227, 179, 0.75);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 205, 229, 0.2), rgba(255, 227, 170, 0.25));
+      color: var(--warm-cream);
+      padding: 14px 28px;
+      font-size: clamp(0.95rem, 2.5vw, 1.08rem);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 22px rgba(255, 183, 123, 0.3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    #start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(255, 203, 138, 0.46);
+      background: linear-gradient(135deg, rgba(255, 205, 229, 0.34), rgba(255, 227, 170, 0.36));
+    }
+
+    .gift-icon {
+      display: inline-block;
+      margin-left: 8px;
+      transform-origin: center;
+      animation: giftBounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes giftBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-2px) scale(1.08); }
+      60% { transform: translateY(-4px) scale(1.16); }
+    }
+
+    @media (max-width: 768px) {
+      #ui-layer { padding-top: 24px; }
+      .loader-text { text-align: center; padding: 0 14px; }
+      #start-btn { padding: 12px 20px; }
+    }
+  </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <audio id="bg-music" src="./audio.mp3" loop></audio>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">Đang chuẩn bị điều bất ngờ...</div>
+    <button id="start-btn">Khám phá món quà nhỏ ❤️ <span class="gift-icon" aria-hidden="true">🎁</span></button>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <div id="ui-layer">
+    <h1>Happy Birthday</h1>
+    <div class="name-badge">Ngô Thanh Giang ❤️</div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x120022, 0.012);
+
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 450);
+    camera.position.set(0, 7, 40);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.85, 0.12);
+    bloom.threshold = 0.06;
+    bloom.radius = 0.9;
+    composer.addPass(bloom);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffecd7, 0.5));
+    const topLight = new THREE.PointLight(0xffd58a, 2.8, 80);
+    topLight.position.set(0, 16, 5);
+    scene.add(topLight);
+
+    const fillLight = new THREE.PointLight(0xffb9d8, 1.1, 90);
+    fillLight.position.set(-14, 8, -20);
+    scene.add(fillLight);
+
+    // Utility
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    function makeSoftTexture() {
+      const c = document.createElement('canvas');
+      c.width = 128;
+      c.height = 128;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      g.addColorStop(0, 'rgba(255,255,255,1)');
+      g.addColorStop(0.4, 'rgba(255,245,230,0.95)');
+      g.addColorStop(1, 'rgba(255,245,230,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(64, 64, 63, 0, Math.PI * 2);
+      ctx.fill();
+      return new THREE.CanvasTexture(c);
+    }
+
+    const particleTexture = makeSoftTexture();
+
+    const colors = {
+      gold: new THREE.Color('#ffe4a6'),
+      cream: new THREE.Color('#fff3da'),
+      pink: new THREE.Color('#ffc8df'),
+      candleOrange: new THREE.Color('#ffb457'),
+      candleYellow: new THREE.Color('#ffd86b')
+    };
+
+    const cakeGroup = new THREE.Group();
+    scene.add(cakeGroup);
+
+    function sampleCylinderVolume(count, radius, height, centerY, jitter = 0.2) {
+      const pts = [];
+      for (let i = 0; i < count; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const r = Math.sqrt(Math.random()) * radius;
+        const x = Math.cos(a) * r + rand(-jitter, jitter);
+        const z = Math.sin(a) * r + rand(-jitter, jitter);
+        const y = centerY + rand(-height / 2, height / 2);
+        pts.push({ x, y, z });
+      }
+      return pts;
+    }
+
+    function createCakeParticleSystem() {
+      const positions = [];
+      const colorData = [];
+
+      const romanticPalette = [colors.gold, colors.cream, colors.pink];
+
+      // Tier 1 (bottom cylinder)
+      sampleCylinderVolume(2000, 9, 5, -0.8, 0.22).forEach((p) => {
+        positions.push(p.x, p.y, p.z);
+        const c = romanticPalette[Math.floor(Math.random() * romanticPalette.length)].clone().multiplyScalar(rand(0.82, 1.05));
+        colorData.push(c.r, c.g, c.b);
+      });
+
+      // Tier 2 (top cylinder)
+      sampleCylinderVolume(1500, 6.2, 4.3, 4.3, 0.2).forEach((p) => {
+        positions.push(p.x, p.y, p.z);
+        const c = romanticPalette[Math.floor(Math.random() * romanticPalette.length)].clone().multiplyScalar(rand(0.86, 1.1));
+        colorData.push(c.r, c.g, c.b);
+      });
+
+      // Decorative cream ring on top tier
+      const ringCount = 420;
+      for (let i = 0; i < ringCount; i++) {
+        const a = (i / ringCount) * Math.PI * 2;
+        const r = 6.1 + Math.sin(i * 0.35) * 0.42;
+        const x = Math.cos(a) * r;
+        const z = Math.sin(a) * r;
+        const y = 6.45 + Math.sin(i * 0.23) * 0.18;
+        positions.push(x, y, z);
+        colorData.push(colors.cream.r, colors.cream.g, colors.cream.b);
+      }
+
+      // Candle stems + flames on very top
+      const candlePositions = [
+        [0, 0], [1.9, 1.2], [-1.9, 1.1], [2.1, -1.4], [-2.1, -1.4], [0.1, 2.2], [0.2, -2.2]
+      ];
+
+      candlePositions.forEach(([cx, cz]) => {
+        // stem
+        for (let i = 0; i < 30; i++) {
+          const y = 6.9 + (i / 30) * 2;
+          positions.push(cx + rand(-0.05, 0.05), y, cz + rand(-0.05, 0.05));
+          colorData.push(colors.cream.r, colors.cream.g, colors.cream.b);
+        }
+
+        // flame
+        for (let i = 0; i < 78; i++) {
+          const a = Math.random() * Math.PI * 2;
+          const spread = Math.sqrt(Math.random()) * 0.42;
+          const x = cx + Math.cos(a) * spread;
+          const z = cz + Math.sin(a) * spread;
+          const y = 9.2 + rand(-0.25, 0.5);
+          positions.push(x, y, z);
+
+          const flameColor = Math.random() > 0.45 ? colors.candleYellow : colors.candleOrange;
+          const bright = flameColor.clone().multiplyScalar(rand(1.0, 1.25));
+          colorData.push(bright.r, bright.g, bright.b);
+        }
+      });
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colorData, 3));
+
+      const material = new THREE.PointsMaterial({
+        map: particleTexture,
+        size: 0.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.95,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true
+      });
+
+      const points = new THREE.Points(geometry, material);
+      points.userData.basePositions = geometry.attributes.position.array.slice();
+      cakeGroup.add(points);
+      return points;
+    }
+
+    function createBokehBackground() {
+      const count = 1200;
+      const positions = [];
+      const colorData = [];
+      const palette = [colors.gold, colors.cream, colors.pink];
+
+      for (let i = 0; i < count; i++) {
+        const radius = rand(28, 95);
+        const angle = rand(0, Math.PI * 2);
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius - 26;
+        const y = rand(-32, 46);
+        positions.push(x, y, z);
+
+        const c = palette[Math.floor(Math.random() * palette.length)].clone().multiplyScalar(rand(0.55, 1));
+        colorData.push(c.r, c.g, c.b);
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colorData, 3));
+
+      const material = new THREE.PointsMaterial({
+        map: particleTexture,
+        size: 1.05,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.22,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+
+      const bokeh = new THREE.Points(geometry, material);
+      scene.add(bokeh);
+      return bokeh;
+    }
+
+    const cakeParticles = createCakeParticleSystem();
+    const bokehParticles = createBokehBackground();
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // gentle rotation
+      cakeGroup.rotation.y = t * 0.15;
+      cakeGroup.rotation.x = Math.sin(t * 0.23) * 0.045;
+
+      // subtle twinkle/drift in particles
+      const pos = cakeParticles.geometry.attributes.position.array;
+      const base = cakeParticles.userData.basePositions;
+      for (let i = 0; i < pos.length; i += 3) {
+        const y = base[i + 1];
+        pos[i] = base[i] + Math.sin(t * 1.1 + i * 0.019) * 0.015;
+        pos[i + 1] = y + Math.sin(t * 1.65 + i * 0.024) * (y > 8.9 ? 0.09 : 0.03);
+        pos[i + 2] = base[i + 2] + Math.cos(t * 1.05 + i * 0.017) * 0.015;
+      }
+      cakeParticles.geometry.attributes.position.needsUpdate = true;
+
+      // slow floating background depth
+      bokehParticles.rotation.y = t * 0.014;
+      bokehParticles.position.y = Math.sin(t * 0.22) * 1.4;
+
+      composer.render();
+    }
+
+    animate();
+
+    const loader = document.getElementById('loader');
+    const startBtn = document.getElementById('start-btn');
+    const bgMusic = document.getElementById('bg-music');
+
+    startBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      if (root.requestFullscreen) {
+        root.requestFullscreen().catch(() => {});
+      }
+
+      bgMusic.play().catch(() => {});
+
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 700);
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
