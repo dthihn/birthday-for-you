@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Giang 🎂 | Món quà nhỏ</title>
-    <link rel="icon" href="https://img.icons8.com/color/48/heart-with-arrow--v1.png" type="image/x-icon">
+    <title>🎂 Happy Birthday Giang 🎂 | Món quà nhỏ</title>
+    <link rel="icon" href="https://img.icons8.com/color/48/birthday-cake.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -79,6 +79,13 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-family: 'Dancing Script', cursive;
             opacity: 0.9;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         h2, .title-text {
@@ -106,8 +113,8 @@
         }
         
         @keyframes glow {
-            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.3); }
-            to { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.8); }
+            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.3); transform: scale(1); }
+            to { box-shadow: 0 0 50px rgba(255, 200, 100, 0.8); border-color: rgba(255, 200, 100, 1); transform: scale(1.05); }
         }
 
         .hint-text { 
@@ -172,8 +179,8 @@
     <div id="canvas-container"></div>
     
     <div id="ui-layer">
-        <h1>Happy Birthday</h1>
-        <div class="name-badge">🎂 Ngô Thanh Giang 🎂</div>
+        <h1>🎂 Happy Birthday 🎂</h1>
+        <div class="name-badge">✨ Ngô Thanh Giang ✨</div>
         <div class="hint-text">Interactive Hand Gestures Active</div>
     </div>
 
@@ -192,12 +199,13 @@
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
 
         // --- CẤU HÌNH ---
+        const isMobile = window.innerWidth < 768;
         const CONFIG = {
             colors: { bg: 0x000000, champagneGold: 0xffd966, deepGreen: 0x03180a, accentRed: 0x990000 },
             particles: { 
-                count: 1500,        
-                dustCount: 2500, 
-                snowCount: 400, 
+                count: isMobile ? 800 : 1500,
+                dustCount: isMobile ? 1000 : 2500,
+                snowCount: isMobile ? 150 : 400,
                 treeHeight: 24, 
                 treeRadius: 8.5     
             },
@@ -293,7 +301,7 @@
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2));
             renderer.toneMapping = THREE.ReinhardToneMapping; renderer.toneMappingExposure = 2.2; 
             container.appendChild(renderer.domElement);
 
@@ -442,7 +450,7 @@
                 if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === 'TREE') s = 0; }
                 else if (mode === 'SCATTER' && this.type === 'PHOTO') s = this.baseScale * 2.5; 
                 else if (mode === 'FOCUS') { 
-                    if (this.mesh === focusTargetMesh) s = 6.0; 
+                    if (this.mesh === focusTargetMesh) s = 3.5;
                     else s = this.baseScale * 0.8; 
                 }
                 this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
