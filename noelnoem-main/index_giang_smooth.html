@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎂 Happy Birthday Giang 🎂 | Món quà nhỏ</title>
-    <link rel="icon" href="https://img.icons8.com/color/48/birthday-cake.png" type="image/x-icon">
+    <title>Happy Birthday Giang 🎂 | Món quà nhỏ</title>
+    <link rel="icon" href="https://img.icons8.com/color/48/heart-with-arrow--v1.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -16,10 +16,7 @@
             background-color: #000000;
             font-family: 'Nunito', sans-serif;
         }
-        #canvas-container {
-            width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1;
-            background: radial-gradient(circle at center, #1a0b12 0%, #000000 70%);
-        }
+        #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
         
         /* UI Overlay */
         #ui-layer {
@@ -36,84 +33,52 @@
         .ui-hidden { opacity: 0 !important; pointer-events: none !important; }
 
         /* Loading */
-        /* Cute Loading Screen */
         #loader {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ffe6f2 0%, #fff0f5 100%); z-index: 100;
+            background: #000; z-index: 100;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1.5s ease-out;
+            transition: opacity 0.8s ease-out;
         }
-
-        .cute-flower {
-            font-size: 50px;
-            margin-bottom: 20px;
-            animation: bounceAndBlink 1.5s ease-in-out infinite;
-        }
-
-        @keyframes bounceAndBlink {
-            0%, 100% { transform: scale(1) translateY(0); opacity: 1; }
-            50% { transform: scale(1.2) translateY(-10px); opacity: 0.7; }
-        }
-
         .loader-text {
-            color: #ff6b81; font-size: 20px; letter-spacing: 1px; margin-top: 10px;
-            font-family: 'Dancing Script', cursive; font-weight: 700;
-            text-shadow: 0 0 5px rgba(255, 107, 129, 0.3);
-            margin-bottom: 20px;
+            color: #d4af37; font-size: 14px; letter-spacing: 4px; margin-top: 20px;
+            text-transform: uppercase; font-weight: 100;
         }
-
-
         .spinner {
-            display: none;
+            width: 40px; height: 40px; border: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid #d4af37; border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        /* Nút Start Dễ Thương */
+        /* Nút Start */
         #start-btn {
             display: none;
-            margin-top: 30px;
-            background: #ffb6c1;
-            color: white;
-            border: none;
+            margin-top: 20px;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
             padding: 15px 40px;
-            font-size: 22px;
-            border-radius: 30px;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             cursor: pointer;
-            font-family: 'Dancing Script', cursive;
-            letter-spacing: 1px;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6);
-            animation: pulse-btn 2s infinite;
+            transition: all 0.3s;
+            font-family: 'Cinzel', serif;
         }
         #start-btn:hover {
-            background: #ff9a9e;
-            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.8);
-            transform: scale(1.1) translateY(-2px);
-            color: white;
-        }
-        #start-btn:active {
-            transform: scale(0.95) translateY(2px);
+            background: #d4af37; color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes pulse-btn {
-            0% { box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6); }
-            50% { box-shadow: 0 5px 25px rgba(255, 182, 193, 0.9); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-            100% { box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6); }
-        }
 
         /* Typography */
         h1 {
-            position: absolute; top: 15%; width: 100%; text-align: center;
-            font-family: 'Dancing Script', cursive; font-size: 4.5rem;
-            margin: 0; z-index: 10; pointer-events: none;
-            text-shadow: 0 0 15px rgba(255,182,193,0.8), 0 0 30px rgba(255,105,180,0.6);
-            animation: pulse-glow 3s infinite alternate;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            color: #fceea7; font-size: 56px; margin: 0; font-weight: 400;
+            letter-spacing: 6px;
+            text-shadow: 0 0 50px rgba(252, 238, 167, 0.6);
+            background: linear-gradient(to bottom, #fff, #eebb66);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Dancing Script', cursive;
+            opacity: 0.9;
         }
 
         h2, .title-text {
@@ -123,16 +88,26 @@
 
         /* Name Badge */
         .name-badge {
-            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
-            font-family: 'Great Vibes', cursive; font-size: 3.5rem;
-            color: #fff; text-shadow: 0 0 10px rgba(255,215,0,0.8), 0 0 20px rgba(255,215,0,0.5);
-            padding: 10px 40px; background: radial-gradient(circle, rgba(255,105,180,0.2) 0%, rgba(0,0,0,0) 80%);
-            border-radius: 50px; z-index: 10; pointer-events: none; white-space: nowrap;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #d4af37;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            backdrop-filter: blur(5px);
+            animation: glow 3s infinite alternate;
         }
         
         @keyframes glow {
-            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.3); transform: scale(1); }
-            to { box-shadow: 0 0 50px rgba(255, 200, 100, 0.8); border-color: rgba(255, 200, 100, 1); transform: scale(1.05); }
+            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.3); }
+            to { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.8); }
         }
 
         .hint-text { 
@@ -176,18 +151,7 @@
                 transform: scale(0.8);
             }
         }
-
-        @keyframes pulse-glow {
-            0% { text-shadow: 0 0 15px rgba(255,182,193,0.8), 0 0 30px rgba(255,105,180,0.6); }
-            100% { text-shadow: 0 0 25px rgba(255,182,193,1), 0 0 40px rgba(255,105,180,0.8); }
-        }
-
-        .gradient-text {
-            background: linear-gradient(45deg, #ffb6c1, #ffd700, #ffb6c1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-</style>
+    </style>
     <script type="importmap">
         {
             "imports": {
@@ -200,17 +164,17 @@
 </head>
 <body>
     <div id="loader">
-        <div class="cute-flower">🌸</div>
-        <div class="loader-text">Đang gói quà cho cậu nè...</div>
-        <button id="start-btn">Mở quà nhé 🎁</button>
+        <div class="spinner"></div>
+        <div class="loader-text">Loading Memories</div>
+        <button id="start-btn">Start Experience</button>
     </div>
     
     <div id="canvas-container"></div>
     
     <div id="ui-layer">
-        <h1>🎂 <span class="gradient-text">Happy Birthday</span> 🎂</h1>
-        <div class="name-badge">✨ <span class="gradient-text">Ngô Thanh Giang</span> ✨</div>
-        <div class="hint-text">Interactive Hand Gestures Active. Double-click to change shape.</div>
+        <h1>Happy Birthday</h1>
+        <div class="name-badge">🎂 Ngô Thanh Giang 🎂</div>
+        <div class="hint-text">Interactive Hand Gestures Active</div>
     </div>
 
     <div id="webcam-wrapper">
@@ -228,13 +192,12 @@
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
 
         // --- CẤU HÌNH ---
-        const isMobile = window.innerWidth < 768;
         const CONFIG = {
             colors: { bg: 0x000000, champagneGold: 0xffd966, deepGreen: 0x03180a, accentRed: 0x990000 },
             particles: { 
-                count: isMobile ? 800 : 1500,
-                dustCount: isMobile ? 1000 : 2500,
-                snowCount: isMobile ? 150 : 400,
+                count: 1500,
+                dustCount: 2500,
+                snowCount: 400,
                 treeHeight: 24, 
                 treeRadius: 8.5     
             },
@@ -253,62 +216,15 @@
             }
         };
 
-
-        let imagePixels = [];
-        let imageLoaded = false;
-
-        function loadImagePixels() {
-            const img = new Image();
-            img.src = 'img/tulip_reference.png';
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-
-                const imgW = 100;
-                const imgH = Math.floor((img.height / img.width) * imgW);
-                canvas.width = imgW;
-                canvas.height = imgH;
-
-                ctx.drawImage(img, 0, 0, imgW, imgH);
-                const data = ctx.getImageData(0, 0, imgW, imgH).data;
-
-                for(let y = 0; y < imgH; y++) {
-                    for(let x = 0; x < imgW; x++) {
-                        const idx = (y * imgW + x) * 4;
-                        const a = data[idx+3];
-                        if (a > 128) {
-                            const r = data[idx] / 255;
-                            const g = data[idx+1] / 255;
-                            const b = data[idx+2] / 255;
-
-                            const normX = (x / imgW) - 0.5;
-                            const normY = -(y / imgH) + 0.5;
-
-                            imagePixels.push({ x: normX, y: normY, r, g, b });
-                        }
-                    }
-                }
-                imageLoaded = true;
-
-                for (let i = imagePixels.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [imagePixels[i], imagePixels[j]] = [imagePixels[j], imagePixels[i]];
-                }
-            };
-        }
-        loadImagePixels();
-
         const STATE = {
             mode: 'TREE', focusIndex: -1, focusTarget: null,
-            hand: { detected: false, x: 0, y: 0 }, rotation: { x: 0, y: 0 },
-            isStarted: false
+            hand: { detected: false, x: 0, y: 0 }, rotation: { x: 0, y: 0 }
         };
 
         let scene, camera, renderer, composer, mainGroup, clock = new THREE.Clock();
         let particleSystem = [], photoMeshGroup = new THREE.Group();
         let handLandmarker, video, caneTexture;
         let snowSystem; 
-        let firefliesSystem;
         
         let loadedPhotoCount = 0;
 
@@ -323,21 +239,18 @@
         async function init() {
             initThree(); setupEnvironment(); setupLights(); createTextures();
             createParticles(); createDust(); 
-            createSnow(); createFireflies();
+            createSnow();
             loadPredefinedImages(); setupPostProcessing();
             setupEvents(); await initMediaPipe();
             
             const loader = document.getElementById('loader');
+            const spinner = document.querySelector('.spinner');
             const loaderText = document.querySelector('.loader-text');
             const startBtn = document.getElementById('start-btn');
-            const cuteFlower = document.querySelector('.cute-flower');
 
-            // Hiển thị loader một lúc rồi hiện nút Start
-            setTimeout(() => {
-                if (cuteFlower) cuteFlower.style.display = 'none';
-                if (loaderText) loaderText.style.display = 'none';
-                if (startBtn) startBtn.style.display = 'block';
-            }, 2000);
+            spinner.style.display = 'none';
+            loaderText.style.display = 'none';
+            startBtn.style.display = 'block';
 
             startBtn.addEventListener('click', () => {
                 const elem = document.documentElement;
@@ -351,10 +264,7 @@
 
                 bgMusic.play().catch(e => console.log("Audio play error:", e));
                 loader.style.opacity = 0;
-                setTimeout(() => {
-                    loader.remove();
-                    STATE.isStarted = true;
-                }, 1000);
+                setTimeout(() => loader.remove(), 800);
             });
 
             animate();
@@ -375,15 +285,15 @@
 
         function initThree() {
             const container = document.getElementById('canvas-container');
-            scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x000000, 0.01);
+            scene = new THREE.Scene(); scene.background = new THREE.Color(CONFIG.colors.bg);
+            scene.fog = new THREE.FogExp2(CONFIG.colors.bg, 0.01);
 
             camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.set(0, 2, CONFIG.camera.z);
 
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.toneMapping = THREE.ReinhardToneMapping; renderer.toneMappingExposure = 2.2; 
             container.appendChild(renderer.domElement);
 
@@ -395,28 +305,12 @@
             scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
         }
 
-        let innerLight;
         function setupLights() {
-            const ambient = new THREE.AmbientLight(0xffffff, 0.4); scene.add(ambient);
-
-            // Breathing inner light (warm gold/amber)
-            innerLight = new THREE.PointLight(0xffaa00, 3, 30);
-            innerLight.position.set(0, 8, 0);
-            mainGroup.add(innerLight);
-
-            // Soft Violet spotlight
-            const spotViolet = new THREE.SpotLight(0x9b5de5, 800);
-            spotViolet.position.set(-30, 30, -30);
-            spotViolet.angle = 0.6; spotViolet.penumbra = 0.8;
-            scene.add(spotViolet);
-
-            // Amber spotlight
-            const spotAmber = new THREE.SpotLight(0xffb703, 1200);
-            spotAmber.position.set(30, 40, 40);
-            spotAmber.angle = 0.5; spotAmber.penumbra = 0.5;
-            scene.add(spotAmber);
-
-            const fill = new THREE.DirectionalLight(0xffeebb, 0.5); fill.position.set(0, 0, 50); scene.add(fill);
+            const ambient = new THREE.AmbientLight(0xffffff, 0.6); scene.add(ambient);
+            const innerLight = new THREE.PointLight(0xffaa00, 2, 20); innerLight.position.set(0, 5, 0); mainGroup.add(innerLight);
+            const spotGold = new THREE.SpotLight(0xffcc66, 1200); spotGold.position.set(30, 40, 40); spotGold.angle = 0.5; spotGold.penumbra = 0.5; scene.add(spotGold);
+            const spotBlue = new THREE.SpotLight(0x6688ff, 600); spotBlue.position.set(-30, 20, -30); scene.add(spotBlue);
+            const fill = new THREE.DirectionalLight(0xffeebb, 0.8); fill.position.set(0, 0, 50); scene.add(fill);
         }
 
         function setupPostProcessing() {
@@ -492,73 +386,10 @@
             snowSystem.geometry.attributes.position.needsUpdate = true;
         }
 
-        // --- FIREFLIES ---
-        function createFireflies() {
-            const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            const velocities = [];
-
-            const canvas = document.createElement('canvas'); canvas.width = 16; canvas.height = 16;
-            const context = canvas.getContext('2d');
-            const gradient = context.createRadialGradient(8, 8, 0, 8, 8, 8);
-            gradient.addColorStop(0, 'rgba(255, 200, 100, 1)');
-            gradient.addColorStop(0.2, 'rgba(255, 150, 50, 0.8)');
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 16, 16);
-            const fireflyTexture = new THREE.CanvasTexture(canvas);
-
-            for (let i = 0; i < 200; i++) {
-                const x = THREE.MathUtils.randFloatSpread(80);
-                const y = THREE.MathUtils.randFloatSpread(60);
-                const z = THREE.MathUtils.randFloatSpread(80);
-                vertices.push(x, y, z);
-                velocities.push(Math.random() * 0.05 + 0.02, Math.random() * 0.02);
-            }
-
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            geometry.setAttribute('userData', new THREE.Float32BufferAttribute(velocities, 2));
-
-            const material = new THREE.PointsMaterial({
-                color: 0xffdd88, size: 0.8, map: fireflyTexture,
-                transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false
-            });
-
-            firefliesSystem = new THREE.Points(geometry, material);
-            scene.add(firefliesSystem);
-        }
-
-        function updateFireflies() {
-            if (!firefliesSystem) return;
-            const positions = firefliesSystem.geometry.attributes.position.array;
-            const userData = firefliesSystem.geometry.attributes.userData.array;
-
-            for (let i = 0; i < 200; i++) {
-                const riseSpeed = userData[i * 2];
-                positions[i * 3 + 1] += riseSpeed;
-                const swaySpeed = userData[i * 2 + 1];
-                positions[i * 3] += Math.sin(clock.elapsedTime * 1.5 + i) * swaySpeed;
-                positions[i * 3 + 2] += Math.cos(clock.elapsedTime * 1.5 + i) * swaySpeed;
-
-                if (positions[i * 3 + 1] > 40) {
-                    positions[i * 3 + 1] = -30;
-                    positions[i * 3] = THREE.MathUtils.randFloatSpread(80);
-                    positions[i * 3 + 2] = THREE.MathUtils.randFloatSpread(80);
-                }
-            }
-            firefliesSystem.geometry.attributes.position.needsUpdate = true;
-        }
-
-        let particleGlobalIndex = 0;
         class Particle {
-            constructor(mesh, type, isDust = false, pIndex = -1) {
-                this.pIndex = pIndex >= 0 ? pIndex : particleGlobalIndex++;
-                this.originalColorSet = false;
-                this.originalColor = null; {
+            constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
-                this.posTree = new THREE.Vector3();
-                this.posTulip = new THREE.Vector3();
-                this.posScatter = new THREE.Vector3();
+                this.posTree = new THREE.Vector3(); this.posScatter = new THREE.Vector3();
                 this.baseScale = mesh.scale.x; 
                 const speedMult = (type === 'PHOTO') ? 0.3 : 2.0;
                 this.spinSpeed = new THREE.Vector3((Math.random()-0.5)*speedMult, (Math.random()-0.5)*speedMult, (Math.random()-0.5)*speedMult);
@@ -567,7 +398,6 @@
             calculatePositions() {
                 if (this.type === 'PHOTO') {
                     this.posTree.set(0, 0, 0); 
-                    this.posTulip.set(0, 0, 0);
                     const rScatter = 8 + Math.random()*12;
                     const theta = Math.random() * Math.PI * 2; const phi = Math.acos(2 * Math.random() - 1);
                     this.posScatter.set(rScatter * Math.sin(phi) * Math.cos(theta), rScatter * Math.sin(phi) * Math.sin(theta), rScatter * Math.cos(phi));
@@ -575,74 +405,21 @@
                 }
                 const h = CONFIG.particles.treeHeight; const halfH = h / 2;
                 
-                // --- Cây Thông ---
-                let tTree = Math.random();
-                tTree = Math.pow(tTree, 1.2);
-                const yTree = (tTree * h) - halfH;
-                let rMaxTree = CONFIG.particles.treeRadius * (1.0 - tTree); if (rMaxTree < 0.5) rMaxTree = 0.5;
-                const angleTree = tTree * 50 * Math.PI + Math.random() * Math.PI; const rTree = rMaxTree * (0.8 + Math.random() * 0.4);
-                this.posTree.set(Math.cos(angleTree) * rTree, yTree, Math.sin(angleTree) * rTree);
+                let t = Math.random();
+                t = Math.pow(t, 1.2);
+                const y = (t * h) - halfH;
 
-                // --- Hoa Tulip ---
-                let isStem = Math.random() < 0.2;
-                if (isStem) {
-                    const yTulip = -halfH + Math.random() * (h * 0.5);
-                    const rTulip = 0.4 + Math.random() * 0.4;
-                    const angleTulip = Math.random() * Math.PI * 2;
-                    this.posTulip.set(Math.cos(angleTulip) * rTulip, yTulip, Math.sin(angleTulip) * rTulip);
-                } else {
-                    const tFlower = Math.random();
-                    const flowerYOffset = -halfH + (h * 0.5);
-                    const flowerH = h * 0.5;
-                    const yTulip = flowerYOffset + tFlower * flowerH;
+                let rMax = CONFIG.particles.treeRadius * (1.0 - t); if (rMax < 0.5) rMax = 0.5;
+                const angle = t * 50 * Math.PI + Math.random() * Math.PI; const r = rMax * (0.8 + Math.random() * 0.4);
+                this.posTree.set(Math.cos(angle) * r, y, Math.sin(angle) * r);
 
-                    // Tulip shape equation: narrower at bottom, wider in middle, slightly curved in at top
-                    let rMaxTulip = Math.sin(tFlower * Math.PI) * (CONFIG.particles.treeRadius * 1.2);
-                    if (tFlower > 0.6) {
-                        // Curve slightly inwards near top, but leave an opening
-                        rMaxTulip = rMaxTulip * (1.0 - (tFlower - 0.6) * 0.5);
-                    }
-
-                    const angleTulip = Math.random() * Math.PI * 2;
-                    // Scalloped petal edges (3 petals)
-                    const petalEffect = 1 + 0.15 * Math.sin(angleTulip * 3);
-                    const rTulip = rMaxTulip * petalEffect * (0.95 + Math.random() * 0.1);
-
-                    this.posTulip.set(Math.cos(angleTulip) * rTulip, yTulip, Math.sin(angleTulip) * rTulip);
-                }
-
-                // --- Scatter ---
                 let rScatter = this.isDust ? (12 + Math.random()*20) : (8 + Math.random()*12);
                 const theta = Math.random() * Math.PI * 2; const phi = Math.acos(2 * Math.random() - 1);
                 this.posScatter.set(rScatter * Math.sin(phi) * Math.cos(theta), rScatter * Math.sin(phi) * Math.sin(theta), rScatter * Math.cos(phi));
             }
             update(dt, mode, focusTargetMesh) {
                 let target = this.posTree;
-                if (mode === 'TREE' && this.originalColorSet) {
-                    this.mesh.material.color.lerp(this.originalColor, 0.1);
-                }
-                if (mode === 'TULIP') {
-                    target = this.posTulip;
-                    if (imageLoaded && imagePixels.length > 0 && this.type !== 'PHOTO') {
-                        const pData = imagePixels[this.pIndex % imagePixels.length];
-                        const scaleX = 25;
-                        const scaleY = 25;
-                        target.set(pData.x * scaleX, pData.y * scaleY, (Math.random() - 0.5) * 1.5);
-
-                        if (this.mesh.material && this.mesh.material.color) {
-                            if (!this.originalColorSet) {
-                                this.originalColor = this.mesh.material.color.clone();
-                                this.originalColorSet = true;
-                                this.mesh.material = this.mesh.material.clone();
-                            }
-                            this.mesh.material.color.lerp(new THREE.Color(pData.r, pData.g, pData.b), 0.1);
-                        }
-                    }
-                }
-                else if (mode === 'SCATTER') {
-                    target = this.posScatter;
-                    if (this.originalColorSet) this.mesh.material.color.lerp(this.originalColor, 0.1);
-                }
+                if (mode === 'SCATTER') target = this.posScatter;
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
                         const desiredWorldPos = new THREE.Vector3(0, 2, 38);
@@ -655,17 +432,17 @@
 
                 if (mode === 'SCATTER') {
                     this.mesh.rotation.x += this.spinSpeed.x * dt; this.mesh.rotation.y += this.spinSpeed.y * dt; this.mesh.rotation.z += this.spinSpeed.z * dt; 
-                } else if (mode === 'TREE' || mode === 'TULIP') {
+                } else if (mode === 'TREE') {
                     if (this.type === 'PHOTO') { this.mesh.lookAt(0, this.mesh.position.y, 0); this.mesh.rotateY(Math.PI); }
                     else { this.mesh.rotation.x = THREE.MathUtils.lerp(this.mesh.rotation.x, 0, dt); this.mesh.rotation.z = THREE.MathUtils.lerp(this.mesh.rotation.z, 0, dt); this.mesh.rotation.y += 0.5 * dt; }
                 }
                 if (mode === 'FOCUS' && this.mesh === focusTargetMesh) this.mesh.lookAt(camera.position); 
 
                 let s = this.baseScale;
-                if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === 'TREE' || mode === 'TULIP') s = 0; }
+                if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === 'TREE') s = 0; }
                 else if (mode === 'SCATTER' && this.type === 'PHOTO') s = this.baseScale * 2.5; 
                 else if (mode === 'FOCUS') { 
-                    if (this.mesh === focusTargetMesh) s = 3.5;
+                    if (this.mesh === focusTargetMesh) s = 6.0;
                     else s = this.baseScale * 0.8; 
                 }
                 this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
@@ -679,16 +456,9 @@
             photos.forEach((p, i) => {
                 const y = bottomY + stepY * i + stepY/2;
                 const fullH = CONFIG.particles.treeHeight; const normalizedH = (y + fullH/2) / fullH; 
-
-                // For Tree Mode
-                let rMaxTree = CONFIG.particles.treeRadius * (1.0 - normalizedH); if (rMaxTree < 1.0) rMaxTree = 1.0;
-                const rTree = rMaxTree + 3.0; const angleTree = normalizedH * Math.PI * 2 * loops + (Math.PI/4);
-                p.posTree.set(Math.cos(angleTree) * rTree, y, Math.sin(angleTree) * rTree);
-
-                // For Tulip Mode (place photos around the tulip base/stem)
-                const rTulip = 4.0;
-                const angleTulip = (i / count) * Math.PI * 2;
-                p.posTulip.set(Math.cos(angleTulip) * rTulip, -fullH/2 + 2, Math.sin(angleTulip) * rTulip);
+                let rMax = CONFIG.particles.treeRadius * (1.0 - normalizedH); if (rMax < 1.0) rMax = 1.0;
+                const r = rMax + 3.0; const angle = normalizedH * Math.PI * 2 * loops + (Math.PI/4);
+                p.posTree.set(Math.cos(angle) * r, y, Math.sin(angle) * r);
             });
         }
 
@@ -838,33 +608,21 @@
                     if(webcam) webcam.classList.toggle('ui-hidden');
                 }
             });
-
-            // Allow double click or double tap to toggle between shapes
-            window.addEventListener('dblclick', () => {
-                if (STATE.mode === 'TULIP') STATE.mode = 'TREE';
-                else if (STATE.mode === 'TREE') STATE.mode = 'TULIP';
-            });
         }
 
         function animate() {
             requestAnimationFrame(animate); const dt = clock.getDelta();
-
-            // Breathing light effect
-            if (innerLight) {
-                innerLight.intensity = 3 + Math.sin(clock.elapsedTime * 2) * 1.5;
-            }
             if (STATE.mode === 'SCATTER' && STATE.hand.detected) {
                 const targetRotY = STATE.hand.x * Math.PI * 0.9; const targetRotX = STATE.hand.y * Math.PI * 0.25;
                 STATE.rotation.y += (targetRotY - STATE.rotation.y) * 3.0 * dt; STATE.rotation.x += (targetRotX - STATE.rotation.x) * 3.0 * dt;
             } else {
-                if(STATE.mode === 'TREE' || STATE.mode === 'TULIP') { STATE.rotation.y += 0.3 * dt; STATE.rotation.x += (0 - STATE.rotation.x) * 2.0 * dt; }
+                if(STATE.mode === 'TREE') { STATE.rotation.y += 0.3 * dt; STATE.rotation.x += (0 - STATE.rotation.x) * 2.0 * dt; }
                 else { STATE.rotation.y += 0.1 * dt; }
             }
             mainGroup.rotation.y = STATE.rotation.y; mainGroup.rotation.x = STATE.rotation.x;
             particleSystem.forEach(p => p.update(dt, STATE.mode, STATE.focusTarget)); 
             
             updateSnow(); 
-            updateFireflies();
 
             composer.render();
         }
