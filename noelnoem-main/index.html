@@ -26,73 +26,78 @@
         
         .ui-hidden { opacity: 0 !important; pointer-events: none !important; }
 
-        /* Loading */
+        /* Cute Loading Screen */
         #loader {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 100;
+            background: linear-gradient(135deg, #ffe6f2 0%, #fff0f5 100%); z-index: 100;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 1.5s ease-out;
         }
+
+        .cute-flower {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: bounceAndBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounceAndBlink {
+            0%, 100% { transform: scale(1) translateY(0); opacity: 1; }
+            50% { transform: scale(1.2) translateY(-10px); opacity: 0.7; }
+        }
+
         .loader-text {
-            color: #d4af37; font-size: 18px; letter-spacing: 2px; margin-top: 20px;
-            font-family: 'Cinzel', serif; font-weight: 400;
-            overflow: hidden; white-space: nowrap;
-            border-right: 2px solid #d4af37;
-            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+            color: #ff6b81; font-size: 20px; letter-spacing: 1px; margin-top: 10px;
+            font-family: 'Dancing Script', cursive; font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 107, 129, 0.3);
+            margin-bottom: 20px;
         }
 
-        @keyframes typing {
-          from { width: 0 }
-          to { width: 280px }
-        }
-
-        @keyframes blink-caret {
-          from, to { border-color: transparent }
-          50% { border-color: #d4af37; }
-        }
 
         .spinner {
-            width: 40px; height: 40px; border: 1px solid rgba(212, 175, 55, 0.2); 
-            border-top: 1px solid #d4af37; border-radius: 50%;
-            animation: spin 1s linear infinite;
+            display: none;
         }
 
-        /* Nút Start */
+        /* Nút Start Dễ Thương */
         #start-btn {
             display: none;
             margin-top: 30px;
-            background: rgba(212, 175, 55, 0.1);
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 12px 30px;
-            font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 2px;
-            cursor: pointer; transition: all 0.5s ease;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-            border-radius: 4px;
+            background: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6);
             animation: pulse-btn 2s infinite;
         }
         #start-btn:hover {
-            background: #d4af37; color: #000;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
-            transform: scale(1.05);
+            background: #ff9a9e;
+            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.8);
+            transform: scale(1.1) translateY(-2px);
+            color: white;
+        }
+        #start-btn:active {
+            transform: scale(0.95) translateY(2px);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse-btn {
-            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); text-shadow: 0 0 10px rgba(212,175,55,0.8); }
-            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            0% { box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6); }
+            50% { box-shadow: 0 5px 25px rgba(255, 182, 193, 0.9); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+            100% { box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6); }
         }
 
         /* Typography */
-        h1 { 
-            color: #fceea7; font-size: 56px; margin: 0; font-weight: 400; 
-            letter-spacing: 6px; 
-            text-shadow: 0 0 50px rgba(252, 238, 167, 0.6); 
-            background: linear-gradient(to bottom, #fff, #eebb66);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-family: 'Cinzel', 'Times New Roman', serif;
-            opacity: 0.9;
-            animation: float 4s ease-in-out infinite;
+        h1 {
+            position: absolute; top: 15%; width: 100%; text-align: center;
+            font-family: 'Dancing Script', cursive; font-size: 4.5rem;
+            margin: 0; z-index: 10; pointer-events: none;
+            text-shadow: 0 0 15px rgba(255,182,193,0.8), 0 0 30px rgba(255,105,180,0.6);
+            animation: pulse-glow 3s infinite alternate;
         }
 
         @keyframes float {
@@ -103,21 +108,11 @@
 
         /* Name Badge */
         .name-badge {
-            margin-bottom: 15px; 
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: #d4af37;
-            padding: 10px 30px; 
-            border-radius: 50px;
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-            backdrop-filter: blur(5px);
-            animation: glow 3s infinite alternate;
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            font-family: 'Great Vibes', cursive; font-size: 3.5rem;
+            color: #fff; text-shadow: 0 0 10px rgba(255,215,0,0.8), 0 0 20px rgba(255,215,0,0.5);
+            padding: 10px 40px; background: radial-gradient(circle, rgba(255,105,180,0.2) 0%, rgba(0,0,0,0) 80%);
+            border-radius: 50px; z-index: 10; pointer-events: none; white-space: nowrap;
         }
         
         @keyframes glow {
@@ -143,7 +138,18 @@
             font-size: 10px; font-family: monospace; background: rgba(0,0,0,0.5);
             padding: 2px 5px; pointer-events: none;
         }
-    </style>
+
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 15px rgba(255,182,193,0.8), 0 0 30px rgba(255,105,180,0.6); }
+            100% { text-shadow: 0 0 25px rgba(255,182,193,1), 0 0 40px rgba(255,105,180,0.8); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #ffb6c1, #ffd700, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+</style>
     <style> @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap'); </style>
     <script type="importmap">
         {
@@ -154,19 +160,20 @@
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="loader">
-        <div class="spinner"></div>
-        <div class="loader-text">Một món quà nhỏ dành cho cậu...</div>
+        <div class="cute-flower">🌸</div>
+        <div class="loader-text">Đang gói quà cho cậu nè...</div>
         <button id="start-btn">Mở quà nhé 🎁</button>
     </div>
     
     <div id="canvas-container"></div>
     
     <div id="ui-layer">
-        <h1>🎂 Happy Birthday 🎂</h1>
-        <div class="name-badge">✨ Ngô Thanh Giang ✨</div>
+        <h1>🎂 <span class="gradient-text">Happy Birthday</span> 🎂</h1>
+        <div class="name-badge">✨ <span class="gradient-text">Ngô Thanh Giang</span> ✨</div>
         <div class="hint-text">Interactive Hand Gestures Active. Double-click to change shape.</div>
     </div>
 
@@ -210,6 +217,51 @@
             }
         };
 
+
+        let imagePixels = [];
+        let imageLoaded = false;
+
+        function loadImagePixels() {
+            const img = new Image();
+            img.src = 'img/tulip_reference.png';
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                const imgW = 100;
+                const imgH = Math.floor((img.height / img.width) * imgW);
+                canvas.width = imgW;
+                canvas.height = imgH;
+
+                ctx.drawImage(img, 0, 0, imgW, imgH);
+                const data = ctx.getImageData(0, 0, imgW, imgH).data;
+
+                for(let y = 0; y < imgH; y++) {
+                    for(let x = 0; x < imgW; x++) {
+                        const idx = (y * imgW + x) * 4;
+                        const a = data[idx+3];
+                        if (a > 128) {
+                            const r = data[idx] / 255;
+                            const g = data[idx+1] / 255;
+                            const b = data[idx+2] / 255;
+
+                            const normX = (x / imgW) - 0.5;
+                            const normY = -(y / imgH) + 0.5;
+
+                            imagePixels.push({ x: normX, y: normY, r, g, b });
+                        }
+                    }
+                }
+                imageLoaded = true;
+
+                for (let i = imagePixels.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [imagePixels[i], imagePixels[j]] = [imagePixels[j], imagePixels[i]];
+                }
+            };
+        }
+        loadImagePixels();
+
         const STATE = {
             mode: 'TULIP', focusIndex: -1, focusTarget: null,
             hand: { detected: false, x: 0, y: 0 }, rotation: { x: 0, y: 0 },
@@ -240,13 +292,16 @@
             setupEvents(); await initMediaPipe();
             
             const loader = document.getElementById('loader');
-            const spinner = document.querySelector('.spinner');
             const loaderText = document.querySelector('.loader-text');
             const startBtn = document.getElementById('start-btn');
+            const cuteFlower = document.querySelector('.cute-flower');
 
-            spinner.style.display = 'none';
-            loaderText.style.display = 'none';
-            startBtn.style.display = 'block';
+            // Hiển thị loader một lúc rồi hiện nút Start
+            setTimeout(() => {
+                if (cuteFlower) cuteFlower.style.display = 'none';
+                if (loaderText) loaderText.style.display = 'none';
+                if (startBtn) startBtn.style.display = 'block';
+            }, 2000);
 
             startBtn.addEventListener('click', () => {
                 const elem = document.documentElement;
@@ -458,8 +513,12 @@
             firefliesSystem.geometry.attributes.position.needsUpdate = true;
         }
 
+        let particleGlobalIndex = 0;
         class Particle {
-            constructor(mesh, type, isDust = false) {
+            constructor(mesh, type, isDust = false, pIndex = -1) {
+                this.pIndex = pIndex >= 0 ? pIndex : particleGlobalIndex++;
+                this.originalColorSet = false;
+                this.originalColor = null; {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
                 this.posTree = new THREE.Vector3();
                 this.posTulip = new THREE.Vector3();
@@ -523,8 +582,31 @@
             }
             update(dt, mode, focusTargetMesh) {
                 let target = this.posTree;
-                if (mode === 'TULIP') target = this.posTulip;
-                else if (mode === 'SCATTER') target = this.posScatter;
+                if (mode === 'TREE' && this.originalColorSet) {
+                    this.mesh.material.color.lerp(this.originalColor, 0.1);
+                }
+                if (mode === 'TULIP') {
+                    target = this.posTulip;
+                    if (imageLoaded && imagePixels.length > 0 && this.type !== 'PHOTO') {
+                        const pData = imagePixels[this.pIndex % imagePixels.length];
+                        const scaleX = 25;
+                        const scaleY = 25;
+                        target.set(pData.x * scaleX, pData.y * scaleY, (Math.random() - 0.5) * 1.5);
+
+                        if (this.mesh.material && this.mesh.material.color) {
+                            if (!this.originalColorSet) {
+                                this.originalColor = this.mesh.material.color.clone();
+                                this.originalColorSet = true;
+                                this.mesh.material = this.mesh.material.clone();
+                            }
+                            this.mesh.material.color.lerp(new THREE.Color(pData.r, pData.g, pData.b), 0.1);
+                        }
+                    }
+                }
+                else if (mode === 'SCATTER') {
+                    target = this.posScatter;
+                    if (this.originalColorSet) this.mesh.material.color.lerp(this.originalColor, 0.1);
+                }
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
                         const desiredWorldPos = new THREE.Vector3(0, 2, 38);
