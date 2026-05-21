@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><body>
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+  // Benchmark for creating vector instances
+  let start = performance.now();
+  for (let i = 0; i < 100000; i++) {
+      new THREE.Vector3(i, i, i);
+      new THREE.Vector3(0, 2, 38);
+      new THREE.Matrix4();
+  }
+  let end = performance.now();
+  console.log("Creation time:", end - start, "ms");
+
+  // Benchmark for reusing instances
+  const tempScale = new THREE.Vector3();
+  const desiredWorldPos = new THREE.Vector3();
+  const invMatrix = new THREE.Matrix4();
+  start = performance.now();
+  for (let i = 0; i < 100000; i++) {
+      tempScale.set(i, i, i);
+      desiredWorldPos.set(0, 2, 38);
+      invMatrix.identity(); // simulate some usage
+  }
+  end = performance.now();
+  console.log("Reuse time:", end - start, "ms");
+</script>
+</body></html>
