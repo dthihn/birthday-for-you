@@ -1,0 +1,3 @@
+## 2024-03-24 - Prevent GC Spikes in High-Frequency Loops
+**Learning:** Instantiating new objects (e.g., `new THREE.Vector3()`, `new THREE.Matrix4()`) within high-frequency update loops like `requestAnimationFrame` for thousands of particles causes significant memory allocation per frame, leading to frequent Garbage Collection (GC) pauses that manifest as stuttering or dropped frames.
+**Action:** Always declare shared module-level objects (like `const _targetScale = new THREE.Vector3();`) and reuse them using `.set()` or `.copy()` inside render loops instead of creating new instances.
