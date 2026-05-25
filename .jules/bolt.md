@@ -1,0 +1,3 @@
+## 2024-11-13 - Reuse Three.js Objects to Prevent GC Spikes
+**Learning:** Instantiating new objects (like `new THREE.Vector3()` or `new THREE.Matrix4()`) inside high-frequency loops, such as the `requestAnimationFrame` update loop for particles, creates massive amounts of garbage. This leads to garbage collection (GC) spikes that drop frame rates and cause stuttering.
+**Action:** Always declare reusable temporary variables (`_tempScale`, `_tempInvMatrix`, etc.) globally or at the module scope. In the update loop, use `.set()`, `.copy()`, or `.identity()` on these existing objects instead of creating new ones.
