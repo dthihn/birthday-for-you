@@ -1,0 +1,3 @@
+## 2024-05-24 - Prevent GC Spikes in High-Frequency THREE.js Loops
+**Learning:** Instantiating `THREE.Vector3` or `THREE.Matrix4` objects inside functions that are called frequently per frame (like a particle update loop running for 4000 particles) causes massive garbage collection (GC) spikes, degrading frame rate and leading to stutter. This is a critical THREE.js performance anti-pattern.
+**Action:** Always reuse global or class-level objects using their `.set()`, `.copy()`, and `.applyMatrix4()` methods instead of using `new THREE.Vector3()` or `new THREE.Matrix4()` inside the `render()` or `update()` loops.
