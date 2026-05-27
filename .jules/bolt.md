@@ -1,0 +1,3 @@
+## 2023-11-09 - Avoid THREE.Vector3 and THREE.Matrix4 garbage collection pauses in update loops
+**Learning:** In THREE.js applications with thousands of particles (like `noelnoem-main/index.html`), instantiating `new THREE.Vector3()` and `new THREE.Matrix4()` inside per-frame `update()` methods causes massive Garbage Collection (GC) pauses because ~240,000 objects are created and destroyed per second.
+**Action:** Always extract `new THREE.Vector3()` and `new THREE.Matrix4()` declarations to module-level scoped variables (e.g., `const _targetScale = new THREE.Vector3()`), and use `.set()`, `.copy()`, or `.applyMatrix4()` to modify and reuse them inside high-frequency `update()` loops.
