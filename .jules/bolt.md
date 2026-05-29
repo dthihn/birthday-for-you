@@ -1,0 +1,3 @@
+## 2025-01-20 - GC Spikes in High-Frequency THREE.js Loops
+**Learning:** Instantiating new objects (e.g., `new THREE.Vector3()`, `new THREE.Matrix4()`) within hot execution paths like the particle update loop (called thousands of times per frame) causes significant Garbage Collection (GC) overhead and frame stuttering in this codebase.
+**Action:** Always pre-allocate module-level reusable objects outside of the loop and utilize methods like `.set()`, `.copy()`, and `.applyMatrix4()` to update their values instead of allocating new instances per frame or per particle.
