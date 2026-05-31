@@ -506,6 +506,12 @@
         }
 
         let particleGlobalIndex = 0;
+        // ⚡ Bolt Optimization: Reuse global objects to prevent GC spikes in update loop
+        const _tempScale = new THREE.Vector3();
+        const _tempTarget = new THREE.Vector3();
+        const _desiredWorldPos = new THREE.Vector3(0, 2, 38);
+        const _invMatrix = new THREE.Matrix4();
+
         class Particle {
             constructor(mesh, type, isDust = false, pIndex = -1) {
                 this.pIndex = pIndex >= 0 ? pIndex : particleGlobalIndex++;
@@ -608,9 +614,9 @@
                 }
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        _desiredWorldPos.set(0, 2, 38);
+                        _invMatrix.copy(mainGroup.matrixWorld).invert();
+                        target = _tempTarget.copy(_desiredWorldPos).applyMatrix4(_invMatrix);
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0;
@@ -631,7 +637,7 @@
                     if (this.mesh === focusTargetMesh) s = 3.5;
                     else s = this.baseScale * 0.8;
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s,s,s), 4*dt);
             }
         }
 
