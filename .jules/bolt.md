@@ -1,0 +1,3 @@
+## 2024-05-24 - [Avoid THREE.js Garbage Collection Spikes in Tight Loops]
+**Learning:** Instantiating new objects like `THREE.Vector3` or `THREE.Matrix4` inside frequent loops (like a particle system's `update()` function running every frame) causes significant garbage collection (GC) spikes, degrading performance in high-frequency functions.
+**Action:** Always reuse module-level or global objects for intermediate calculations using methods like `.set()`, `.copy()`, and `.applyMatrix4()` to mutate them in-place, reducing memory allocation overhead per frame.
