@@ -470,6 +470,11 @@
         }
 
         let particleGlobalIndex = 0;
+        const _tempScaleVector = new THREE.Vector3();
+        const _tempFocusVector = new THREE.Vector3();
+        const _tempMatrix = new THREE.Matrix4();
+        const _desiredWorldPos = new THREE.Vector3(0, 2, 38);
+
         class Particle {
             constructor(mesh, type, isDust = false, pIndex = -1) {
                 this.pIndex = pIndex >= 0 ? pIndex : particleGlobalIndex++;
@@ -572,9 +577,9 @@
                 }
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        /* Optimized: Replaced Vector3 instantiation with global reuse */
+                        /* Optimized: Replaced Matrix4 instantiation */
+                        target = _tempFocusVector.copy(_desiredWorldPos).applyMatrix4(_tempMatrix.copy(mainGroup.matrixWorld).invert());
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0;
@@ -595,7 +600,7 @@
                     if (this.mesh === focusTargetMesh) s = 3.5;
                     else s = this.baseScale * 0.8;
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScaleVector.set(s, s, s), 4 * dt); // Optimized: Reusing Vector3 to prevent GC spikes
             }
         }
 
