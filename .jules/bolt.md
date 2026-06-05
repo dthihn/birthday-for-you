@@ -1,0 +1,3 @@
+## 2024-05-18 - Optimize THREE.js Particle Update Loop Garbage Collection
+**Learning:** Instantiating new `THREE.Vector3` and `THREE.Matrix4` objects inside high-frequency update loops (like a particle system's `update()` method called every frame) causes significant Garbage Collection spikes, leading to stuttering in animation performance.
+**Action:** Always declare reusable temporary objects (e.g., `_tempVector = new THREE.Vector3()`) outside the loop or at the module level. Use mutating methods like `.set()`, `.copy()`, and `.applyMatrix4()` to update these temporary objects in place instead of creating new ones per frame.
