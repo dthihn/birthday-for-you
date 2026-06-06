@@ -1,0 +1,3 @@
+## 2026-06-06 - Avoid GC Spikes in High-Frequency THREE.js Loops
+**Learning:** Instantiating new THREE.js objects (like `THREE.Vector3` or `THREE.Matrix4`) inside the high-frequency update loops of thousands of particles per frame leads to massive object allocation (~270,000 objects/sec), triggering severe Garbage Collection (GC) pauses that drop the frame rate and stutter the animation.
+**Action:** Always declare module-level or global "temp" vector/matrix instances and reuse them via methods like `.set()`, `.copy()`, and `.applyMatrix4()` in `.update()` and `.render()` loops. Be careful when using methods like `.applyMatrix4()` as they mutate the caller in place.
