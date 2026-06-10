@@ -269,6 +269,8 @@
             caneTexture.wrapS = THREE.RepeatWrapping; caneTexture.wrapT = THREE.RepeatWrapping; caneTexture.repeat.set(3, 3);
         }
 
+        // Optimization: Reuse module-level vector to prevent GC spikes in update loop
+        const _tempScale = new THREE.Vector3();
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
@@ -320,7 +322,7 @@
                 if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === 'TREE') s = 0; }
                 else if (mode === 'SCATTER' && this.type === 'PHOTO') s = this.baseScale * 2.5; 
                 else if (mode === 'FOCUS') { if (this.mesh === focusTargetMesh) s = 4.5; else s = this.baseScale * 0.8; }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s, s, s), 4*dt);
             }
         }
 

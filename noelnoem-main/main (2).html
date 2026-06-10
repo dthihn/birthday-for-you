@@ -346,6 +346,8 @@
             snowSystem.geometry.attributes.position.needsUpdate = true;
         }
 
+        // Optimization: Reuse module-level vector to prevent GC spikes in update loop
+        const _tempScale = new THREE.Vector3();
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
@@ -410,7 +412,7 @@
                     if (this.mesh === focusTargetMesh) s = 6.0; 
                     else s = this.baseScale * 0.8; 
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s, s, s), 4*dt);
             }
         }
 
