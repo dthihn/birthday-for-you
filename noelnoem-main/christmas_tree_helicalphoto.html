@@ -301,6 +301,10 @@
             caneTexture.repeat.set(3, 3);
         }
 
+        // Optimization: Reusing module-level Vector3/Matrix4 to prevent GC spikes in the hot update loop
+        const _tempScale = new THREE.Vector3();
+        const _desiredWorldPos = new THREE.Vector3(0, 2, 38);
+        const _invMatrix = new THREE.Matrix4();
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh;
@@ -418,7 +422,7 @@
                     else s = this.baseScale * 0.8; 
                 }
                 
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s,s,s), 4*dt);
             }
         }
 
