@@ -223,6 +223,10 @@
             isStarted: false
         };
 
+        // ⚡ Bolt: Global reusable objects to prevent GC spikes
+        const _tempScale = new THREE.Vector3();
+        const _tempTarget = new THREE.Vector3();
+        const _invMatrix = new THREE.Matrix4();
         let scene, camera, renderer, composer, mainGroup, clock = new THREE.Clock();
         let particleSystem = [], photoMeshGroup = new THREE.Group();
         let handLandmarker, video, caneTexture;
@@ -600,9 +604,8 @@
                 }
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        _invMatrix.copy(mainGroup.matrixWorld).invert();
+                        target = _tempTarget.set(0, 2, 38).applyMatrix4(_invMatrix);
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
@@ -623,7 +626,7 @@
                     if (this.mesh === focusTargetMesh) s = 3.5; 
                     else s = this.baseScale * 0.8; 
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s, s, s), 4 * dt); // ⚡ Bolt: Optimized to prevent GC spikes
             }
         }
 
