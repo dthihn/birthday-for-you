@@ -382,9 +382,10 @@
                 if (mode === 'SCATTER') target = this.posScatter;
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        Particle._tempMatrix = Particle._tempMatrix || new THREE.Matrix4();
+                        Particle._tempVec = Particle._tempVec || new THREE.Vector3();
+                        const invMatrix = Particle._tempMatrix.copy(mainGroup.matrixWorld).invert();
+                        target = Particle._tempVec.set(0, 2, 38).applyMatrix4(invMatrix); /* Bolt: Optimize GC */
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
@@ -405,7 +406,8 @@
                     if (this.mesh === focusTargetMesh) s = 6.0; 
                     else s = this.baseScale * 0.8; 
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                Particle._tempScale = Particle._tempScale || new THREE.Vector3();
+                this.mesh.scale.lerp(Particle._tempScale.set(s,s,s), 4*dt); /* Bolt: Optimize GC */
             }
         }
 
