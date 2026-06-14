@@ -1,0 +1,3 @@
+## 2024-06-14 - Optimize THREE.js Garbage Collection in Particle Update Loop
+**Learning:** Found that `new THREE.Vector3(s,s,s)` and `new THREE.Matrix4().copy(...)` were being called inside `Particle.update()` loops per particle per frame. In systems with thousands of particles, this creates massive amounts of short-lived objects causing severe GC spikes and frame drops.
+**Action:** Always reuse module-level or global shared objects (e.g. `Particle._tempScale.set(s,s,s)` or `Particle._tempMatrix.copy(...)`) when updating object transforms in per-frame rendering loops instead of instantiating new instances.
