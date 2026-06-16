@@ -383,6 +383,10 @@
             caneTexture.repeat.set(3, 3);
         }
 
+        // ⚡ Bolt: Cache objects to avoid GC spikes in update loop
+        const _tempScale = new THREE.Vector3();
+        const _tempDesiredPos = new THREE.Vector3(0, 2, 38);
+        const _tempInvMatrix = new THREE.Matrix4();
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh;
@@ -488,7 +492,7 @@
                     else s = this.baseScale * 0.8; 
                 }
                 
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s,s,s), 4*dt);
             }
         }
 
