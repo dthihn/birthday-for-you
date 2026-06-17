@@ -1,0 +1,3 @@
+## 2024-06-25 - Prevent GC spikes in THREE.js high-frequency update loops
+**Learning:** Instantiating `THREE.Vector3` or `THREE.Matrix4` instances inside per-particle, per-frame update loops causes huge Garbage Collection (GC) spikes, degrading framerate and inducing micro-stutters.
+**Action:** Always declare module-level or global temporary variables (e.g. `const _tempScale = new THREE.Vector3();`, `const _tempWorldPos = new THREE.Vector3();`) and reuse them using `.set()`, `.copy()`, and `.applyMatrix4()` in the `update()` methods instead of `new THREE.Vector3()` to completely avoid loop-based instantiation.
