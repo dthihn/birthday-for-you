@@ -346,6 +346,9 @@
             snowSystem.geometry.attributes.position.needsUpdate = true;
         }
 
+        const _tempScale = new THREE.Vector3();
+        const _tempWorldPos = new THREE.Vector3();
+        const _tempMatrix = new THREE.Matrix4();
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
@@ -382,9 +385,9 @@
                 if (mode === 'SCATTER') target = this.posScatter;
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        _tempWorldPos.set(0, 2, 38);
+                        _tempMatrix.copy(mainGroup.matrixWorld).invert();
+                        target = _tempWorldPos.applyMatrix4(_tempMatrix);
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
@@ -405,7 +408,7 @@
                     if (this.mesh === focusTargetMesh) s = 6.0; 
                     else s = this.baseScale * 0.8; 
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s, s, s), 4*dt);
             }
         }
 
