@@ -191,6 +191,10 @@
         import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
 
+        const _tempScale = new THREE.Vector3();
+        const _tempTargetPos = new THREE.Vector3();
+        const _tempInvMatrix = new THREE.Matrix4();
+
         // --- CẤU HÌNH ---
         const isMobile = window.innerWidth < 768;
         const CONFIG = {
@@ -572,8 +576,8 @@
                 }
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
+                        const desiredWorldPos = _tempTargetPos.set(0, 2, 38);
+                        const invMatrix = _tempInvMatrix.copy(mainGroup.matrixWorld).invert();
                         target = desiredWorldPos.applyMatrix4(invMatrix);
                     } else target = this.posScatter;
                 }
@@ -595,7 +599,7 @@
                     if (this.mesh === focusTargetMesh) s = 3.5;
                     else s = this.baseScale * 0.8;
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s, s, s), 4*dt);
             }
         }
 
