@@ -346,6 +346,11 @@
             snowSystem.geometry.attributes.position.needsUpdate = true;
         }
 
+        // ⚡ Bolt Performance Optimization: Reuse objects to prevent GC spikes in render loop
+        const _particleTempVec = new THREE.Vector3();
+        const _particleTempMat = new THREE.Matrix4();
+        const _particleDesiredPos = new THREE.Vector3();
+
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
@@ -385,9 +390,9 @@
                 if (mode === 'SCATTER') target = this.posScatter;
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 38);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        _particleDesiredPos.set(0, 2, 38);
+                        _particleTempMat.copy(mainGroup.matrixWorld).invert();
+                        target = _particleDesiredPos.applyMatrix4(_particleTempMat);
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
@@ -410,7 +415,7 @@
                     if (this.mesh === focusTargetMesh) s = 6.0; 
                     else s = this.baseScale * 0.8; 
                 }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_particleTempVec.set(s, s, s), 4*dt);
             }
         }
 
