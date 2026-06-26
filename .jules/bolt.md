@@ -1,0 +1,3 @@
+## 2026-06-26 - GC Optimization in Particle Updates
+**Learning:** Reusing shared `THREE.Vector3` and `THREE.Matrix4` instances inside high-frequency functions like `Particle.update()` is critical for WebGL performance. Allocating new objects on every frame for potentially hundreds or thousands of particles causes heavy garbage collection (GC) spikes, leading to frame drops.
+**Action:** When working on particle systems or 3D animations in this codebase, always hoist temporary vector and matrix objects into shared or module-scoped constants and mutate them via `.set()`, `.copy()`, and `.lerp()` instead of instantiating new objects with `new THREE.Vector3()`.
