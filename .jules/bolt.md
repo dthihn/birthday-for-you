@@ -1,0 +1,3 @@
+## 2026-06-27 - GC Spikes with THREE.js Vector and Matrix Object Instantiations
+**Learning:** In high-frequency functions like a THREE.js frame update loop, repeatedly calling `new THREE.Vector3()` or `new THREE.Matrix4()` causes significant object churn. This leads to garbage collection spikes, which visually stutter or pause the application on the browser main thread.
+**Action:** Declare module-level or globally-scoped instances of ThreeJS objects (like vectors, quaternions, and matrices). Inside update loops, mutate these shared instances using `_tempVec.set(x,y,z)` or `_invMat.copy(other).invert()` instead of calling `new`.
