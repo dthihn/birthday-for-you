@@ -1,0 +1,3 @@
+## 2024-05-13 - Reuse THREE.js objects in high-frequency functions
+**Learning:** Instantiating new THREE.js objects (like `THREE.Vector3`, `THREE.Matrix4`) inside the `update` loop or per-particle functions can cause significant Garbage Collection (GC) spikes, degrading frame rates, especially when iterating over thousands of particles.
+**Action:** Declare reusable, module-level variables (e.g., `const _tempTarget = new THREE.Vector3();`, `const _tempMatrix = new THREE.Matrix4();`, `const _tempScale = new THREE.Vector3();`) and use methods like `.set()`, `.copy()`, and `.applyMatrix4()` to modify them in place instead of creating new instances.
