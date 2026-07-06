@@ -269,6 +269,14 @@
             caneTexture.wrapS = THREE.RepeatWrapping; caneTexture.wrapT = THREE.RepeatWrapping; caneTexture.repeat.set(3, 3);
         }
 
+        // ⚡ Bolt Optimization: Reuse Vector/Matrix objects to prevent GC spikes in update loop
+
+        const _tempScale = new THREE.Vector3();
+
+        const _tempTargetPos = new THREE.Vector3();
+
+        const _tempInvMatrix = new THREE.Matrix4();
+
         class Particle {
             constructor(mesh, type, isDust = false) {
                 this.mesh = mesh; this.type = type; this.isDust = isDust;
@@ -300,9 +308,9 @@
                 if (mode === 'SCATTER') target = this.posScatter;
                 else if (mode === 'FOCUS') {
                     if (this.mesh === focusTargetMesh) {
-                        const desiredWorldPos = new THREE.Vector3(0, 2, 35);
-                        const invMatrix = new THREE.Matrix4().copy(mainGroup.matrixWorld).invert();
-                        target = desiredWorldPos.applyMatrix4(invMatrix);
+                        _tempTargetPos.set(0, 2, 35);
+                        _tempInvMatrix.copy(mainGroup.matrixWorld).invert();
+                        target = _tempTargetPos.applyMatrix4(_tempInvMatrix);
                     } else target = this.posScatter;
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
@@ -320,7 +328,7 @@
                 if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === 'TREE') s = 0; }
                 else if (mode === 'SCATTER' && this.type === 'PHOTO') s = this.baseScale * 2.5; 
                 else if (mode === 'FOCUS') { if (this.mesh === focusTargetMesh) s = 4.5; else s = this.baseScale * 0.8; }
-                this.mesh.scale.lerp(new THREE.Vector3(s,s,s), 4*dt);
+                this.mesh.scale.lerp(_tempScale.set(s,s,s), 4*dt);
             }
         }
 
